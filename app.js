@@ -21,9 +21,9 @@ app.use(cors(corsOptions));
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
 const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
 
-app.get("/api/img", (req, res) => {
+app.post("/api/img", (req, res) => {
   const imgData = req.body;
-  console.log(imgData);
+  console.log(req);
   res.send("hi");
   /*const api_url = "https://openapi.naver.com/v1/vision/face";
   const _form = { image: "image" };
