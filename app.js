@@ -22,8 +22,10 @@ const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
 const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
 
 app.get("/api/img", (req, res) => {
-  const imgData = req;
-  const api_url = "https://openapi.naver.com/v1/vision/face";
+  const imgData = req.body;
+  console.log(imgData);
+  res.send("hi");
+  /*const api_url = "https://openapi.naver.com/v1/vision/face";
   const _form = { image: "image" };
   axios
     .post({
@@ -40,7 +42,7 @@ app.get("/api/img", (req, res) => {
       res.send(data.items);
       console.log(res);
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.log(err));*/
 });
 
 app.listen(port, () => {
