@@ -4,6 +4,8 @@ const port = 4000;
 require("dotenv").config();
 const cors = require("cors");
 const { default: axios } = require("axios");
+const multer = require("multer");
+const upload = multer({ dest: "upload/" });
 
 //body parser
 app.use(express.json());
@@ -21,10 +23,10 @@ app.use(cors(corsOptions));
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
 const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
 
-app.post("/api/img", (req, res) => {
-  const imgData = req.body;
-  console.log(req);
-  res.send("hi");
+app.post("/api/img", upload.single("image"), (req, res) => {
+  console.log(req.body);
+  console.log(req.file);
+  console.log(req.file.filename);
   /*const api_url = "https://openapi.naver.com/v1/vision/face";
   const _form = { image: "image" };
   axios
