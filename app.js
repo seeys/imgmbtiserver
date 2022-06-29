@@ -39,8 +39,8 @@ app.post("/api/img", upload.single("image"), (req, res) => {
         "X-Naver-Client-Secret": CLIENT_SECRET,
       },
     })
-    .then((res) => {
-      console.log(res.data);
+    .then((response) => {
+      res.send(response.data);
     })
     .catch((err) => console.log(err));
 });
