@@ -6,6 +6,8 @@ const cors = require("cors");
 const { default: axios } = require("axios");
 const multer = require("multer");
 const upload = multer({ dest: "upload/" });
+const FormData = require("form-data");
+const fs = require("fs");
 
 //body parser
 app.use(express.json());
@@ -24,27 +26,23 @@ const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
 const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
 
 app.post("/api/img", upload.single("image"), (req, res) => {
-  console.log(req.body);
-  console.log(req.file);
-  console.log(req.file.filename);
-  /*const api_url = "https://openapi.naver.com/v1/vision/face";
-  const _form = { image: "image" };
+  const { file } = req;
+  console.log(file);
+  const form = new FormData();
+  form.append("image", fs.createReadStream("upload/" + file.filename));
+  const api_url = "https://openapi.naver.com/v1/vision/face";
   axios
-    .post({
-      url: api_url,
-      formData: _form,
+    .post(api_url, form, {
       headers: {
-        ..._form.getHeaders(),
+        ...form.getHeaders(),
         "X-Naver-Client-Id": CLIENT_ID,
         "X-Naver-Client-Secret": CLIENT_SECRET,
       },
     })
     .then((res) => {
-      const { data } = res;
-      res.send(data.items);
-      console.log(res);
+      console.log(res.data);
     })
-    .catch((err) => console.log(err));*/
+    .catch((err) => console.log(err));
 });
 
 app.listen(port, () => {
