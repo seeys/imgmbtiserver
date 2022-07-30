@@ -30,7 +30,7 @@ app.post("/api/img", upload.single("image"), (req, res) => {
   console.log(file);
   const form = new FormData();
   form.append("image", fs.createReadStream("upload/" + file.filename));
-  const api_url = "https://openapi.naver.com/v1/vision/face";
+  const api_url = "https://openapi.naver.com/v1/vision/celebrity";
   axios
     .post(api_url, form, {
       headers: {
